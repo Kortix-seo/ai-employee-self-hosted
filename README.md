@@ -1,6 +1,6 @@
 # Three decisions before you self-host an open-source AI employee
 
-This repository is about running an open-source AI employee on infrastructure you control, and about the three decisions that come before any command: where the agent runs, where the credentials live, and what stops a write. Kortix is the open-source AI Operating System; agents, skills, connectors and company memory live as files you can inspect. The job an agent holds can be support triage, a weekly report, or sales ops, and the platform underneath that job can run on your own server.
+This repository is about running an open-source AI employee on infrastructure you control, and about the three decisions that come before any command: where the agent runs, where the credentials live, and what stops a write. Kortix is the open-source CompanyOS; agents, skills, connectors and company memory live as files you can inspect. The job an agent holds can be support triage, a weekly report, or sales ops, and the platform underneath that job can run on your own server.
 
 The deployment is a single Compose stack, set up and kept current by the `kortix self-host` commands, and it uses the release images Kortix runs in its own cloud. The database, stored files, repos and policies live on disks you control, and one instance directory holds the three things you back up: `.env`, the Postgres data directory and the storage directory.
 
