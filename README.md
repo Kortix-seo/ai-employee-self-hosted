@@ -33,7 +33,7 @@ kortix self-host init --domain kortix.example.com --admin-email you@example.com
 kortix self-host start
 ```
 
-On a bare server, Kortix publishes a bootstrap script in [the repository](https://github.com/kortix-ai/suna) that installs Docker and the CLI, runs `kortix self-host init`, sets the domain and starts the stack; [the self-hosting page](https://kortix.com/docs/host) lists its exact invocation and flags. If the script added you to the `docker` group, open a new shell, then:
+On a bare server, Kortix publishes a bootstrap script in [the repository](https://github.com/kortix-ai/CompanyOS) that installs Docker and the CLI, runs `kortix self-host init`, sets the domain and starts the stack; [the self-hosting page](https://kortix.com/docs/host) lists its exact invocation and flags. If the script added you to the `docker` group, open a new shell, then:
 
 ```bash
 kortix self-host configure
