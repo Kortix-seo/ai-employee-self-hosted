@@ -9,7 +9,7 @@ The deployment is a single Compose stack, set up and kept current by the `kortix
 | Decision | What it settles | Where the answer changes |
 | --- | --- | --- |
 | Where the agent runs | The sandbox provider, and whether the instance is reachable from the internet | A laptop can run the stack, but sessions need a public API |
-| Where the credentials live | Connector credentials, project secrets and model keys | Connector grants are per project; model keys are per project too |
+| Where the credentials live | Connector credentials, workspace secrets and model keys | Connector grants are per workspace; model keys are per workspace too |
 | What stops a write | The `policy` block in `kortix.yaml` | You set allow, ask or block per action |
 
 Each one has a different answer for a laptop, a VPC and an on-prem network. The documents in `docs/` work through them in order, then the first run, then the credential and approval configuration an operator does before inviting anyone.
@@ -19,7 +19,7 @@ Each one has a different answer for a laptop, a VPC and an on-prem network. The 
 Every service belongs to one Compose project named `kortix-<instance>`. The server runs the browser app, the REST API, the model gateway, a one-shot migration job, the updater, the Supabase set, and Caddy when a domain is configured. Two things always sit off the box:
 
 - **Sandboxes.** A session runs on Platinum (the default; Daytona is a legacy fallback), created with your provider key, and reaches your instance over a public URL. The API has to be addressable from outside for any of this to start.
-- **Model providers.** The gateway on your box calls the providers your projects connect.
+- **Model providers.** The gateway on your box calls the providers your workspaces connect.
 
 Three Docker Hub repositories supply it: `kortix/kortix-frontend`, `kortix/kortix-api` and `kortix/kortix-gateway`. A pull needs no credentials.
 
@@ -43,7 +43,7 @@ kortix self-host doctor
 
 ## Before you invite anyone
 
-Claim the admin account with an address listed in `KORTIX_PLATFORM_ADMIN_EMAILS`. Connect GitHub at `/admin/git`, build the team account and a project, and add the model key under Customize, Models, Providers. Set `EMAIL_URL` or `DISABLE_SIGNUP=true` early, since otherwise anyone who can reach the instance may create a confirmed account for any address, an admin address included.
+Claim the admin account with an address listed in `KORTIX_PLATFORM_ADMIN_EMAILS`. Connect GitHub at `/admin/git`, build the team workspace, and add the model key under Customize, Models, Providers. Set `EMAIL_URL` or `DISABLE_SIGNUP=true` early, since otherwise anyone who can reach the instance may create a confirmed account for any address, an admin address included.
 
 ## In this repository
 
@@ -54,6 +54,6 @@ Claim the admin account with an address listed in `KORTIX_PLATFORM_ADMIN_EMAILS`
 
 ## The short version of the security story
 
-One isolated sandbox per session. Each session has its own isolated machine and branch. Connector credentials are brokered server-side and never enter the machine. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. The rule that stops a write is a policy block in `kortix.yaml`, committed with the rest of the project, so a diff shows who changed what an agent may do.
+One isolated sandbox per session. Each session has its own isolated machine and branch. Connector credentials are brokered server-side and never enter the machine. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. The rule that stops a write is a policy block in `kortix.yaml`, committed with the rest of the workspace, so a diff shows who changed what an agent may do.
 
 For the wider question of running an AI employee as a role, see [opensourceaiemployee.com](https://opensourceaiemployee.com). The [open-source AI employee guide](https://opensourceaiemployee.com/open-source-ai-employee) is the long version of that case. The product documentation is at [kortix.com/docs](https://kortix.com/docs).
